@@ -4,10 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import team.exploding.kisabackenddb.model.*;
-import team.exploding.kisabackenddb.service.AttemptRepository;
-import team.exploding.kisabackenddb.service.KUserRepository;
-import team.exploding.kisabackenddb.service.MRCSentenceRepository;
-import team.exploding.kisabackenddb.service.STRConstantRepository;
+import team.exploding.kisabackenddb.service.*;
 
 import java.util.List;
 
@@ -17,6 +14,7 @@ public class DemoContentConfiguration {
     CommandLineRunner commandLineRunner(KUserRepository kuserRepository,
                                         STRConstantRepository strConstantRepository,
                                         MRCSentenceRepository mrcSentenceRepository,
+                                        MRCAnswerableRepository mrcAnswerableRepository,
                                         AttemptRepository attemptRepository) {
         return args -> {
             var kuserId = kuserRepository.save(KUser.builder().firstName("Enrico").build()).getId();
@@ -27,6 +25,8 @@ public class DemoContentConfiguration {
             mrcSentenceRepository.save(mrcSentence);
             var str = STRConstant.builder().string("test").mrcSentence(mrcSentence).build();
             strConstantRepository.save(str);
+            var mrc = MRCAnswerable.builder().position(0).mrcSentence(mrcSentence).build();
+            mrcAnswerableRepository.save(mrc);
         };
     }
 }
