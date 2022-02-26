@@ -15,6 +15,7 @@ public class DemoContentConfiguration {
                                         STRConstantRepository strConstantRepository,
                                         MRCSentenceRepository mrcSentenceRepository,
                                         MRCAnswerableRepository mrcAnswerableRepository,
+                                        MRCAnswerableItemRepository mrcAnswerableItemRepository,
                                         AttemptRepository attemptRepository) {
         return args -> {
             var kuserId = kuserRepository.save(KUser.builder().firstName("Enrico").build()).getId();
@@ -27,6 +28,12 @@ public class DemoContentConfiguration {
             strConstantRepository.save(str);
             var mrc = MRCAnswerable.builder().position(0).mrcSentence(mrcSentence).build();
             mrcAnswerableRepository.save(mrc);
+            var mrcAI_to = MRCAnswerableItem.builder().choice("to").mrcAnswerable(mrc).build();
+            var mrcAI_be = MRCAnswerableItem.builder().choice("be").mrcAnswerable(mrc).build();
+            mrcAnswerableItemRepository.save(mrcAI_be);
+            mrcAnswerableItemRepository.save(mrcAI_to);
+
+
         };
     }
 }
