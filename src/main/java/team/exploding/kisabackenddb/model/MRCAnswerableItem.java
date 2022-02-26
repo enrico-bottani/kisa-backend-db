@@ -6,21 +6,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "MRC_SENTENCE")
-public class MRCSentence {
+@Table(name = "MRC_ANSWERABLE_ITEM")
+public class MRCAnswerableItem {
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    Long id;
-    @OneToMany(mappedBy = "mrcSentence",fetch = FetchType.LAZY)
-    List<STRConstant> strings;
-    @OneToMany(mappedBy = "mrcSentence",fetch = FetchType.LAZY)
-    List<MRCAnswerable> answerables;
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name="MRC_ANSWERABLE")
+    MRCAnswerable mrcAnswerable;
+
+    String choice;
 }

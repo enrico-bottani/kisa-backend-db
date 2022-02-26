@@ -12,16 +12,15 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "STRING_CONSTANT")
-public class StringConstant {
+@Table(name = "MRC_ANSWERABLE")
+public class MRCAnswerable {
     @Id
     @GeneratedValue
-    @Column(name = "ID", updatable = false)
+    @Column(name = "ID")
     private Long id;
-
-    private String string;
-
     @ManyToOne
-    @JoinColumn(name="MRC_SENTENCE")
+    @JoinColumn(name="mcr_sentence_fk")
     MRCSentence mrcSentence;
+
+    int position;
 }
