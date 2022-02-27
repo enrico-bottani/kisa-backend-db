@@ -11,8 +11,7 @@ import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerableItem;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MRCChoosenItemDTO {
-    private Long id;
-    private MRCAnswerableItem mrcAnswerableItem;
-    private Attempt attempt;
+public class MRCChoosenItemDTO_IDOnly {
+
+    private Long answerable_item_id;
 }

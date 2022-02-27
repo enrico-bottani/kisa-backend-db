@@ -1,10 +1,9 @@
 package team.exploding.kisabackenddb.mapper;
 
 import org.springframework.stereotype.Component;
-import team.exploding.kisabackenddb.dto.AssignableDTO;
 import team.exploding.kisabackenddb.dto.MRCAnswerableItemDTO;
-import team.exploding.kisabackenddb.model.assignables.Assignable;
 import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerableItem;
+
 @Component
 public class MRCAnswerableItemMapper {
     public MRCAnswerableItemDTO map(MRCAnswerableItem assignable) {
