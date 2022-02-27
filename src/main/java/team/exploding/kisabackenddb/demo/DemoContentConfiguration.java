@@ -4,11 +4,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import team.exploding.kisabackenddb.model.*;
-import team.exploding.kisabackenddb.service.*;
-
-import java.util.List;
+import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerable;
+import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerableItem;
+import team.exploding.kisabackenddb.model.assignables.STRConstant;
+import team.exploding.kisabackenddb.repository.*;
 
 @Configuration
+
 public class DemoContentConfiguration {
     @Bean
     CommandLineRunner commandLineRunner(KUserRepository kuserRepository,
@@ -18,12 +20,13 @@ public class DemoContentConfiguration {
                                         MRCAnswerableItemRepository mrcAnswerableItemRepository,
                                         AttemptRepository attemptRepository) {
         return args -> {
-            var kuserId = kuserRepository.save(KUser.builder().firstName("Enrico").build()).getId();
-            attemptRepository.save(Attempt.builder()
-                    .closed(false).user(kuserRepository.getById(kuserId)).build());
+            var kuser = KUser.builder().firstName("Enrico").build();
+            kuserRepository.save(kuser);
+            var attempt = Attempt.builder().closed(false).user(kuser).build();
+            attemptRepository.save(attempt);
 
             var mrcSentence = MRCSentence.builder().build();
-            mrcSentenceRepository.save(mrcSentence);
+            mrcSentence = mrcSentenceRepository.save(mrcSentence);
             var str = STRConstant.builder().string("test").mrcSentence(mrcSentence).build();
             strConstantRepository.save(str);
             var mrc = MRCAnswerable.builder().position(0).mrcSentence(mrcSentence).build();
@@ -32,8 +35,6 @@ public class DemoContentConfiguration {
             var mrcAI_be = MRCAnswerableItem.builder().choice("be").mrcAnswerable(mrc).build();
             mrcAnswerableItemRepository.save(mrcAI_be);
             mrcAnswerableItemRepository.save(mrcAI_to);
-
-
         };
     }
 }

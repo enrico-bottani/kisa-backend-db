@@ -1,4 +1,4 @@
-package team.exploding.kisabackenddb.model;
+package team.exploding.kisabackenddb.model.assignables.mrc;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,15 +12,15 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "MRC_ANSWERABLE")
-public class MRCAnswerable {
+@Table(name = "MRC_ANSWERABLE_ITEM")
+public class MRCAnswerableItem {
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private Long id;
     @ManyToOne
-    @JoinColumn(name="mcr_sentence_fk")
-    MRCSentence mrcSentence;
+    @JoinColumn(name="MRC_ANSWERABLE")
+    MRCAnswerable mrcAnswerable;
 
-    int position;
+    String choice;
 }

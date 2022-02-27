@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerableItem;
 
 import javax.persistence.*;
 
