@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import team.exploding.kisabackenddb.model.Attempt;
+import team.exploding.kisabackenddb.model.MRCChoosenItem;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,6 +24,8 @@ public class MRCAnswerableItem {
     @ManyToOne
     @JoinColumn(name="MRC_ANSWERABLE")
     MRCAnswerable mrcAnswerable;
-
+    @OneToMany(mappedBy = "mrcAnswerableItem",fetch = FetchType.LAZY)
+    List<MRCChoosenItem> choosenItems;
     String choice;
+    int solution;
 }

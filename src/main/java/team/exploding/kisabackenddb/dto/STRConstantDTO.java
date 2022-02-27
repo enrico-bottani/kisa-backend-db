@@ -9,8 +9,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class MRCAnswerableItemDTO {
-    private Long id;
-    String choice;
-    int solution;
+public class STRConstantDTO extends AssignableDTO {
+    private String string;
 }

@@ -11,6 +11,7 @@ public class MRCAnswerableItemMapper {
         return MRCAnswerableItemDTO.builder()
                 .id(assignable.getId())
                 .choice(assignable.getChoice())
+                .solution(assignable.getSolution())
                 .build();
     }
 }

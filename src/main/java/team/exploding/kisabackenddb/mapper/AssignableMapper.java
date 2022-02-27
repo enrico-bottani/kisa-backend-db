@@ -4,19 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import team.exploding.kisabackenddb.dto.AssignableDTO;
 import team.exploding.kisabackenddb.dto.MRCAnswerableDTO;
+import team.exploding.kisabackenddb.dto.STRConstantDTO;
 import team.exploding.kisabackenddb.model.assignables.Assignable;
-import team.exploding.kisabackenddb.model.assignables.AssignableType;
+import team.exploding.kisabackenddb.model.assignables.STRConstant;
 import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerable;
 
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static team.exploding.kisabackenddb.model.assignables.AssignableType.RC_ANSWERABLE;
+import static team.exploding.kisabackenddb.model.assignables.AssignableType.STRING;
 
 @Component
 public class AssignableMapper {
     @Autowired
-    MRCAnswerableItemMapper mapper;
+    MRCAnswerableItemMapper answItemMapper;
     public AssignableDTO map(Assignable assignable) {
         var assignableType = assignable.getType();
 
@@ -24,13 +25,22 @@ public class AssignableMapper {
             MRCAnswerable mrcAnswerable = (MRCAnswerable) assignable;
             return MRCAnswerableDTO.builder()
                     .type(mrcAnswerable.getType())
-                    //TODO: Mapping
                     .answerableItems(mrcAnswerable
                             .getAnswerableItems().stream()
-                            .map(mapper::map).collect(Collectors.toList()))
+                            .map(answItemMapper::map).collect(Collectors.toList()))
                     .id(assignable.getId())
                     .position(assignable.getPosition()).build();
-        } else {
+        }
+        else if (assignableType.equals(STRING.toString())) {
+            STRConstant mrcAnswerable = (STRConstant) assignable;
+            return STRConstantDTO.builder()
+                    .string(mrcAnswerable.getString())
+                    .type(mrcAnswerable.getType())
+                    .id(mrcAnswerable.getId())
+                    .position(assignable.getPosition()).build();
+        }
+
+        else {
             return AssignableDTO.builder()
                     .type(assignable.getType())
                     .id(assignable.getId())

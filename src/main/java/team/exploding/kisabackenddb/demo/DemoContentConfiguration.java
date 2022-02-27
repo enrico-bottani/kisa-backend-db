@@ -18,6 +18,7 @@ public class DemoContentConfiguration {
                                         MRCSentenceRepository mrcSentenceRepository,
                                         MRCAnswerableRepository mrcAnswerableRepository,
                                         MRCAnswerableItemRepository mrcAnswerableItemRepository,
+                                        MRCChoosenItemRepository mrcChoosenItemRepository,
                                         AttemptRepository attemptRepository) {
         return args -> {
             var kuser = KUser.builder().firstName("Enrico").build();
@@ -35,6 +36,8 @@ public class DemoContentConfiguration {
             var mrcAI_be = MRCAnswerableItem.builder().choice("be").mrcAnswerable(mrc).build();
             mrcAnswerableItemRepository.save(mrcAI_be);
             mrcAnswerableItemRepository.save(mrcAI_to);
+            var choosenAnswer = MRCChoosenItem.builder().mrcAnswerableItem(mrcAI_be).attempt(attempt).build();
+            mrcChoosenItemRepository.save(choosenAnswer);
         };
     }
 }
