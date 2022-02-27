@@ -4,9 +4,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import team.exploding.kisabackenddb.model.assignables.Assignable;
+import team.exploding.kisabackenddb.model.assignables.AssignableType;
 
 import javax.persistence.*;
 import java.util.List;
+
 
 @Data
 @NoArgsConstructor
@@ -16,4 +18,5 @@ import java.util.List;
 public class MRCAnswerable extends Assignable {
     @OneToMany(mappedBy = "mrcAnswerable",fetch = FetchType.LAZY)
     List<MRCAnswerableItem> answerableItems;
+    protected final String type = AssignableType.RC_ANSWERABLE.toString();
 }

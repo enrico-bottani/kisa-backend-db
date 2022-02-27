@@ -14,5 +14,5 @@ import java.util.List;
 @AllArgsConstructor
 @SuperBuilder
 public class MRCAnswerableDTO extends AssignableDTO{
-    List<MRCAnswerableItem> answerableItems;
+    List<MRCAnswerableItemDTO> answerableItems;
 }

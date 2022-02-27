@@ -9,6 +9,8 @@ import team.exploding.kisabackenddb.model.MRCSentence;
 
 import javax.persistence.*;
 
+import static team.exploding.kisabackenddb.model.assignables.AssignableType.RC_ANSWERABLE;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,5 +21,5 @@ public class STRConstant extends Assignable{
 
     private String string;
 
-
+    protected final String type = AssignableType.STRING.toString();
 }

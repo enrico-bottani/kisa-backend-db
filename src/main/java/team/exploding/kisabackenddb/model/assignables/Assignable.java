@@ -22,7 +22,7 @@ public class Assignable {
     @Column(name = "ID", updatable = false)
     protected Long id;
     int position;
-    private final String type = AssignableType.Undefined.toString();
+    protected final String type = AssignableType.Undefined.toString();
     @ManyToOne
     @JoinColumn(name="mcr_sentence_fk")
     MRCSentence mrcSentence;
