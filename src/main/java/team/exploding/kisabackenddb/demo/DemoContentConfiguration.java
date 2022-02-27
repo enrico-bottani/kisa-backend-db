@@ -29,7 +29,7 @@ public class DemoContentConfiguration {
             mrcSentence = mrcSentenceRepository.save(mrcSentence);
             var str = STRConstant.builder().string("test").mrcSentence(mrcSentence).build();
             strConstantRepository.save(str);
-            var mrc = MRCAnswerable.builder().position(0).mrcSentence(mrcSentence).build();
+            var mrc = MRCAnswerable.builder().position(1).mrcSentence(mrcSentence).build();
             mrcAnswerableRepository.save(mrc);
             var mrcAI_to = MRCAnswerableItem.builder().choice("to").mrcAnswerable(mrc).build();
             var mrcAI_be = MRCAnswerableItem.builder().choice("be").mrcAnswerable(mrc).build();

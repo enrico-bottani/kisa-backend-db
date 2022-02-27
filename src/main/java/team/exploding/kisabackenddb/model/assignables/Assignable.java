@@ -11,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode
+@Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "ASSIGN__")

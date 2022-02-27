@@ -20,6 +20,6 @@ public class MRCSentence {
     @GeneratedValue
     @Column(name = "ID")
     Long id;
-    @OneToMany(mappedBy = "mrcSentence",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "mrcSentence",fetch = FetchType.EAGER)
     List<Assignable> assignables;
 }
