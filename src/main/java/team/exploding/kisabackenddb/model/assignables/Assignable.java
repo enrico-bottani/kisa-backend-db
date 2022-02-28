@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import team.exploding.kisabackenddb.model.MRCSentence;
+import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 
 import javax.persistence.*;
 

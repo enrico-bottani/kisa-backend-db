@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import team.exploding.kisabackenddb.model.*;
 import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerable;
 import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerableItem;
-import team.exploding.kisabackenddb.model.assignables.STRConstant;
+import team.exploding.kisabackenddb.model.assignables.constant.STRConstant;
+import team.exploding.kisabackenddb.model.exercise.Exercise;
+import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 import team.exploding.kisabackenddb.repository.*;
 
 @Configuration
@@ -14,6 +16,7 @@ import team.exploding.kisabackenddb.repository.*;
 public class DemoContentConfiguration {
     @Bean
     CommandLineRunner commandLineRunner(KUserRepository kuserRepository,
+                                        ExerciseRepository exerciseRepository,
                                         STRConstantRepository strConstantRepository,
                                         MRCSentenceRepository mrcSentenceRepository,
                                         MRCAnswerableRepository mrcAnswerableRepository,
@@ -26,8 +29,12 @@ public class DemoContentConfiguration {
             var attempt = Attempt.builder().closed(false).user(kuser).build();
             attemptRepository.save(attempt);
 
-            var mrcSentence = MRCSentence.builder().build();
+            var exercise = Exercise.builder().title("Put in the correct preposition").build();
+            exerciseRepository.save(exercise);
+
+            var mrcSentence = MRCSentence.builder().exercise(exercise).build();
             mrcSentence = mrcSentenceRepository.save(mrcSentence);
+
             var str = STRConstant.builder().string("test").mrcSentence(mrcSentence).build();
             strConstantRepository.save(str);
             var mrc = MRCAnswerable.builder().position(1).mrcSentence(mrcSentence).build();
@@ -37,6 +44,8 @@ public class DemoContentConfiguration {
             mrcAnswerableItemRepository.save(mrcAI_be);
             mrcAnswerableItemRepository.save(mrcAI_to);
             var choosenAnswer = MRCChoosenItem.builder().mrcAnswerableItem(mrcAI_be).attempt(attempt).build();
+            mrcChoosenItemRepository.save(choosenAnswer);
+            choosenAnswer = MRCChoosenItem.builder().mrcAnswerableItem(mrcAI_to).attempt(attempt).build();
             mrcChoosenItemRepository.save(choosenAnswer);
         };
     }

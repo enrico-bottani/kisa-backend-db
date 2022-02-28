@@ -1,15 +1,13 @@
-package team.exploding.kisabackenddb.model.assignables;
+package team.exploding.kisabackenddb.model.assignables.constant;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import team.exploding.kisabackenddb.model.MRCSentence;
+import team.exploding.kisabackenddb.model.assignables.Assignable;
+import team.exploding.kisabackenddb.model.assignables.AssignableType;
 
 import javax.persistence.*;
-
-import static team.exploding.kisabackenddb.model.assignables.AssignableType.RC_ANSWERABLE;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +15,7 @@ import static team.exploding.kisabackenddb.model.assignables.AssignableType.RC_A
 @SuperBuilder
 @Entity
 @Table(name = "ASSIGN_STR_CONSTANT")
-public class STRConstant extends Assignable{
+public class STRConstant extends Assignable {
 
     private String string;
 

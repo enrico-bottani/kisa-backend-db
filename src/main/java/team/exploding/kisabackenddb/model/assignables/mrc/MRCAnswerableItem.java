@@ -27,5 +27,5 @@ public class MRCAnswerableItem {
     @OneToMany(mappedBy = "mrcAnswerableItem",fetch = FetchType.LAZY)
     List<MRCChoosenItem> choosenItems;
     String choice;
-    int solution;
+    int solution = -1;
 }

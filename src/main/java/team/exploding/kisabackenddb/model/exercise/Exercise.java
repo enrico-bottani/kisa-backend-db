@@ -1,4 +1,4 @@
-package team.exploding.kisabackenddb.model;
+package team.exploding.kisabackenddb.model.exercise;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,12 +14,15 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "MRC_SENTENCE")
-public class MRCSentence {
+@Table(name = "Exercise")
+public class Exercise {
     @Id
     @GeneratedValue
-    @Column(name = "ID")
-    Long id;
-    @OneToMany(mappedBy = "mrcSentence",fetch = FetchType.EAGER)
-    List<Assignable> assignables;
+    @Column(name = "ID", updatable = false)
+    private Long id;
+
+    @OneToMany(mappedBy = "exercise",fetch = FetchType.LAZY)
+    List<ExercisePage> pages;
+
+    String title;
 }

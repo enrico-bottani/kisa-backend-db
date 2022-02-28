@@ -6,7 +6,7 @@ import team.exploding.kisabackenddb.dto.AssignableDTO;
 import team.exploding.kisabackenddb.dto.MRCAnswerableDTO;
 import team.exploding.kisabackenddb.dto.STRConstantDTO;
 import team.exploding.kisabackenddb.model.assignables.Assignable;
-import team.exploding.kisabackenddb.model.assignables.STRConstant;
+import team.exploding.kisabackenddb.model.assignables.constant.STRConstant;
 import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerable;
 
 import java.util.stream.Collectors;

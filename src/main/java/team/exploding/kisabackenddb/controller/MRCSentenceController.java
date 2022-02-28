@@ -6,9 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import team.exploding.kisabackenddb.dto.KUserDTO;
-import team.exploding.kisabackenddb.dto.MRCSentenceDTO;
-import team.exploding.kisabackenddb.service.KUserService;
+import team.exploding.kisabackenddb.dto.epage.MRCSentenceDTO;
 import team.exploding.kisabackenddb.service.MRCSentenceService;
 
 @Controller
