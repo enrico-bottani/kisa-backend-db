@@ -6,7 +6,9 @@ import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
 import team.exploding.kisabackenddb.mapper.ExerciseMapper;
 import team.exploding.kisabackenddb.repository.ExerciseRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class ExerciseService {
@@ -16,5 +18,9 @@ public class ExerciseService {
     ExerciseMapper exerciseMapper;
     public Optional<ExerciseDTO> findById(long id){
         return exerciseRepository.findById(id).map(exerciseMapper::map);
+    }
+    public List<ExerciseDTO> finAll(){
+        return exerciseRepository.findAll().stream()
+                .map(exerciseMapper::map).collect(Collectors.toList());
     }
 }

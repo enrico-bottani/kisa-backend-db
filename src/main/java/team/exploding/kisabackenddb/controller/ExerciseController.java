@@ -11,6 +11,8 @@ import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
 import team.exploding.kisabackenddb.service.ExerciseService;
 import team.exploding.kisabackenddb.service.MRCAttemptService;
 
+import java.util.List;
+
 @Controller
 public class ExerciseController {
     @Autowired
@@ -20,5 +22,9 @@ public class ExerciseController {
     public ResponseEntity<ExerciseDTO> getById(@PathVariable(name = "id") long id){
         return ResponseEntity.of(exerciseService.findById(id));
     }
-
+    @CrossOrigin
+    @GetMapping(value = "/exercises.json")
+    public ResponseEntity<List<ExerciseDTO>> getAll(){
+        return ResponseEntity.ok(exerciseService.finAll());
+    }
 }
