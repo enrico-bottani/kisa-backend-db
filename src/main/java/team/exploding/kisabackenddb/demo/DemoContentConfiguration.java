@@ -32,8 +32,11 @@ public class DemoContentConfiguration {
             var exercise = Exercise.builder().title("Put in the correct preposition").build();
             exerciseRepository.save(exercise);
 
-            var mrcSentence = MRCSentence.builder().exercise(exercise).build();
+            var mrcSentence = MRCSentence.builder().position(0).exercise(exercise).build();
             mrcSentence = mrcSentenceRepository.save(mrcSentence);
+
+            var mrcSentence2 = MRCSentence.builder().position(1).exercise(exercise).build();
+            mrcSentence2 = mrcSentenceRepository.save(mrcSentence2);
 
             var str = STRConstant.builder().string("test").mrcSentence(mrcSentence).build();
             strConstantRepository.save(str);

@@ -27,4 +27,6 @@ public class ExercisePage {
     @ManyToOne
     @JoinColumn(name="EXERCISE_ID", nullable=false)
     Exercise exercise;
+
+    int position = 0;
 }

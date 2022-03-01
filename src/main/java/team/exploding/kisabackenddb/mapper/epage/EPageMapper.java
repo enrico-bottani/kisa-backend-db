@@ -18,10 +18,11 @@ public class EPageMapper {
         if (e instanceof MRCSentence){
             MRCSentence mrcSentence = (MRCSentence) e;
             return MRCSentenceDTO.builder().id(e.getId())
+                    .position(e.getPosition())
                     .assignables(mrcSentence.getAssignables().stream()
                             .map(assignableMapper::map).collect(Collectors.toList()))
                     .build();
         }
-       return ExercisePageDTO.builder().id(e.getId()).build();
+       return ExercisePageDTO.builder().position(e.getPosition()).id(e.getId()).build();
     }
 }

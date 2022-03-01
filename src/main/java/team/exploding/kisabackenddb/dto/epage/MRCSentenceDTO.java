@@ -16,4 +16,5 @@ import java.util.List;
 @SuperBuilder
 public class MRCSentenceDTO extends ExercisePageDTO{
     List<AssignableDTO> assignables;
+    private final String type = "RCT";
 }

@@ -18,7 +18,7 @@ public class ExerciseController {
     @Autowired
     ExerciseService exerciseService;
     @CrossOrigin
-    @GetMapping(value = "/exercise/{id}.json")
+    @GetMapping(value = "/exercises/{id}.json")
     public ResponseEntity<ExerciseDTO> getById(@PathVariable(name = "id") long id){
         return ResponseEntity.of(exerciseService.findById(id));
     }
