@@ -1,11 +1,10 @@
 package team.exploding.kisabackenddb.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerableItem;
+import team.exploding.kisabackenddb.dto.epage.MRCAnswerableItemDTO;
 
 import java.util.List;
 

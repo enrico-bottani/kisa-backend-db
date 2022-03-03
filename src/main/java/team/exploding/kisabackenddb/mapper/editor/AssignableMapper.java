@@ -1,4 +1,4 @@
-package team.exploding.kisabackenddb.mapper;
+package team.exploding.kisabackenddb.mapper.editor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,6 +29,8 @@ public class AssignableMapper {
                             .getAnswerableItems().stream()
                             .map(answItemMapper::map).collect(Collectors.toList()))
                     .id(assignable.getId())
+                    ._exerciseId(assignable.getMrcSentence().getExercise().getId())
+                    ._exercisePageId(assignable.getMrcSentence().getId())
                     .position(assignable.getPosition()).build();
         }
         else if (assignableType.equals(STRING.toString())) {
@@ -37,6 +39,8 @@ public class AssignableMapper {
                     .string(mrcAnswerable.getString())
                     .type(mrcAnswerable.getType())
                     .id(mrcAnswerable.getId())
+                    ._exerciseId(assignable.getMrcSentence().getExercise().getId())
+                    ._exercisePageId(assignable.getMrcSentence().getId())
                     .position(assignable.getPosition()).build();
         }
 
@@ -44,6 +48,8 @@ public class AssignableMapper {
             return AssignableDTO.builder()
                     .type(assignable.getType())
                     .id(assignable.getId())
+                    ._exerciseId(assignable.getMrcSentence().getExercise().getId())
+                    ._exercisePageId(assignable.getMrcSentence().getId())
                     .position(assignable.getPosition()).build();
         }
     }

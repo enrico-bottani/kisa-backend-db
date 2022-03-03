@@ -13,4 +13,5 @@ import lombok.experimental.SuperBuilder;
 public class ExercisePageDTO {
     Long id;
     int position=0;
+    long _exercise;
 }
