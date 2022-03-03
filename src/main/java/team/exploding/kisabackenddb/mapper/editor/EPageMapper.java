@@ -18,13 +18,13 @@ public class EPageMapper {
             MRCSentence mrcSentence = (MRCSentence) e;
             return MRCSentenceDTO.builder().id(e.getId())
                     .position(e.getPosition())
-                    ._exercise(e.getExercise().getId())
+                    ._exerciseId(e.getExercise().getId())
                     .assignables(mrcSentence.getAssignables().stream()
                             .map(assignableMapper::map).collect(Collectors.toList()))
                     .build();
         }
        return ExercisePageDTO.builder()
-               ._exercise(e.getExercise().getId())
+               ._exerciseId(e.getExercise().getId())
                .position(e.getPosition())
                .id(e.getId()).build();
     }
