@@ -18,6 +18,8 @@ import static team.exploding.kisabackenddb.model.assignables.AssignableType.STRI
 public class AssignableMapper {
     @Autowired
     MRCAnswerableItemMapper answItemMapper;
+    @Autowired
+    STRConstantMapper strConstantMapper;
     public AssignableDTO map(Assignable assignable) {
         var assignableType = assignable.getType();
 
@@ -29,27 +31,17 @@ public class AssignableMapper {
                             .getAnswerableItems().stream()
                             .map(answItemMapper::map).collect(Collectors.toList()))
                     .id(assignable.getId())
-                    ._exerciseId(assignable.getMrcSentence().getExercise().getId())
-                    ._exercisePageId(assignable.getMrcSentence().getId())
                     .position(assignable.getPosition()).build();
         }
         else if (assignableType.equals(STRING.toString())) {
             STRConstant mrcAnswerable = (STRConstant) assignable;
-            return STRConstantDTO.builder()
-                    .string(mrcAnswerable.getString())
-                    .type(mrcAnswerable.getType())
-                    .id(mrcAnswerable.getId())
-                    ._exerciseId(assignable.getMrcSentence().getExercise().getId())
-                    ._exercisePageId(assignable.getMrcSentence().getId())
-                    .position(assignable.getPosition()).build();
+            return strConstantMapper.map(mrcAnswerable);
         }
 
         else {
             return AssignableDTO.builder()
                     .type(assignable.getType())
                     .id(assignable.getId())
-                    ._exerciseId(assignable.getMrcSentence().getExercise().getId())
-                    ._exercisePageId(assignable.getMrcSentence().getId())
                     .position(assignable.getPosition()).build();
         }
     }

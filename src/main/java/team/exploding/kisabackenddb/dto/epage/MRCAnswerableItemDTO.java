@@ -16,7 +16,4 @@ public class MRCAnswerableItemDTO {
     private Long id;
     String choice;
     int solution;
-    private Long _exerciseId;
-    private Long _exercisePageId;
-    private Long _assignableId;
 }

@@ -11,11 +11,6 @@ public class MRCAnswerableItemMapper {
                 .id(answerableItem.getId())
                 .choice(answerableItem.getChoice())
                 .solution(answerableItem.getSolution())
-                ._exerciseId(answerableItem.getMrcAnswerable()
-                        .getMrcSentence().getExercise().getId())
-                ._exercisePageId(answerableItem.getMrcAnswerable()
-                        .getMrcSentence().getId())
-                ._assignableId(answerableItem.getMrcAnswerable().getId())
                 .build();
     }
 }

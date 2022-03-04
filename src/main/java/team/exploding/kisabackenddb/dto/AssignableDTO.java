@@ -16,6 +16,4 @@ public class AssignableDTO {
     protected Long id;
     int position;
     private String type;
-    private Long _exerciseId;
-    private Long _exercisePageId;
 }
