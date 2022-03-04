@@ -24,7 +24,7 @@ public class MRCAnswerableItem {
     @ManyToOne
     @JoinColumn(name="MRC_ANSWERABLE")
     MRCAnswerable mrcAnswerable;
-    @OneToMany(mappedBy = "mrcAnswerableItem",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "mrcAnswerableItem",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     List<MRCChoosenItem> choosenItems;
     String choice;
     int solution = -1;

@@ -22,4 +22,10 @@ public class AnswerableItemController {
     public ResponseEntity<MRCAnswerableItem> findById(@PathVariable(name = "id") long id){
         return ResponseEntity.of(mrcAnswerableItemService.findById(id));
     }
+    @CrossOrigin
+    @DeleteMapping(value = "/answerable_item/{id}.json")
+    public ResponseEntity<Object> deleteById(@PathVariable(name = "id") long id){
+        mrcAnswerableItemService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

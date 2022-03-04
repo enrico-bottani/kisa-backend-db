@@ -29,7 +29,16 @@ public class MRCAnswerableItemService {
             return answer.map(mrcAnswerableItemMapper::map);
         }
         answer.get().setChoice(mrcAnswItem.getChoice());
+        // questa logica permette anche di deselzionare
+        answer.get().getMrcAnswerable().getAnswerableItems().forEach(answerable->{
+            answerable.setSolution(0);
+        });
+        answer.get().setSolution(mrcAnswItem.getSolution());
         answerableItemRepository.save(answer.get());
         return answer.map(mrcAnswerableItemMapper::map);
+    }
+
+    public void deleteById(long id) {
+        answerableItemRepository.deleteById(id);
     }
 }
