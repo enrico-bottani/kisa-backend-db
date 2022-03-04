@@ -32,9 +32,9 @@ public class MRCSentenceService {
         return mrcSentenceRepository.findById(id).map(k -> mrcSentenceMapper.map(k));
     }
 
-    public Optional<MRCSentenceDTO> addAssignable(long id) {
+    public Optional<MRCSentenceDTO> addAssignableBySentenceId(long sentenceId) {
         var optMrc = mrcSentenceRepository
-                .findById(id);
+                .findById(sentenceId);
         if (optMrc.isEmpty()) {
             return optMrc.map(mrcSentenceMapper::map);
         }
@@ -52,7 +52,7 @@ public class MRCSentenceService {
             // Save this assignable
             strConstantRepository.save(strToAdd);
             return mrcSentenceRepository
-                    .findById(id).map(mrcSentenceMapper::map);
+                    .findById(sentenceId).map(mrcSentenceMapper::map);
         }
         var strToAdd = new MRCAnswerable();
         strToAdd.setPosition(assignableSize);
@@ -60,6 +60,6 @@ public class MRCSentenceService {
         // Save this assignable
         mrcAnswerableRepository.save(strToAdd);
         return mrcSentenceRepository
-                .findById(id).map(mrcSentenceMapper::map);
+                .findById(sentenceId).map(mrcSentenceMapper::map);
     }
 }

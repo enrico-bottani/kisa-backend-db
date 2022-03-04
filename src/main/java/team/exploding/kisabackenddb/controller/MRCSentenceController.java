@@ -22,6 +22,6 @@ public class MRCSentenceController {
     @CrossOrigin
     @PostMapping(value = "/sentence/{id}/assignable.json")
     public ResponseEntity<MRCSentenceDTO> addAssignable(@PathVariable(name = "id") long id){
-        return ResponseEntity.of(mrcSentenceService.addAssignable(id));
+        return ResponseEntity.of(mrcSentenceService.addAssignableBySentenceId(id));
     }
 }
