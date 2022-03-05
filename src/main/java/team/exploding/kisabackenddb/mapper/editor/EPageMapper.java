@@ -7,6 +7,7 @@ import team.exploding.kisabackenddb.dto.epage.MRCSentenceDTO;
 import team.exploding.kisabackenddb.model.exercise.ExercisePage;
 import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 @Component
 public class EPageMapper {
@@ -18,7 +19,10 @@ public class EPageMapper {
             MRCSentence mrcSentence = (MRCSentence) e;
             return MRCSentenceDTO.builder().id(e.getId())
                     .position(e.getPosition())
-                    .assignables(mrcSentence.getAssignables().stream()
+                    .assignables(mrcSentence.getAssignables()==null?
+                            new ArrayList<>()
+                            :
+                            mrcSentence.getAssignables().stream()
                             .map(assignableMapper::map).collect(Collectors.toList()))
                     .build();
         }

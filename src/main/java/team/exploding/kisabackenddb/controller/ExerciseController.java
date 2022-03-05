@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import team.exploding.kisabackenddb.dto.AttemptAnswerMapDTO;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
 import team.exploding.kisabackenddb.service.ExerciseService;
@@ -21,6 +22,11 @@ public class ExerciseController {
     @GetMapping(value = "/exercises/{id}.json")
     public ResponseEntity<ExerciseDTO> getById(@PathVariable(name = "id") long id){
         return ResponseEntity.of(exerciseService.findById(id));
+    }
+    @CrossOrigin
+    @PostMapping(value = "/exercises/{id}/mrc_sentence.json")
+    public ResponseEntity<ExerciseDTO> addSentenceToExerciseHavingId(@PathVariable(name = "id") long id){
+        return ResponseEntity.of(exerciseService.addSentenceToExerciseHavingId(id));
     }
     @CrossOrigin
     @GetMapping(value = "/exercises.json")
