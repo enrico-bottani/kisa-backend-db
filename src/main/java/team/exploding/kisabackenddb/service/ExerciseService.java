@@ -24,6 +24,12 @@ public class ExerciseService {
     public Optional<ExerciseDTO> findById(long id){
         return exerciseRepository.findById(id).map(exerciseMapper::map);
     }
+
+    public Optional<ExerciseDTO> addNew(){
+        return Optional.of(exerciseRepository.save(Exercise.builder().title("Todotitle").build())).map(exerciseMapper::map);
+    }
+
+
     public List<ExerciseDTO> finAll(){
         return exerciseRepository.findAll().stream()
                 .map(exerciseMapper::map).collect(Collectors.toList());
@@ -34,9 +40,10 @@ public class ExerciseService {
         if (optexercise.isEmpty())return optexercise.map(exerciseMapper::map);
         var exercise = optexercise.get();
         var exPages = exercise.getPages();
-
+        var position=0;
+        if (exPages!=null && exPages.size()>0) position = exPages.get(exPages.size()-1).getPosition()+1;
         var mrcSentence = MRCSentence.builder()
-                .position(exPages.get(exPages.size()-1).getPosition()+1)
+                .position(position)
                 .exercise(exercise).build();
         mrcSentenceRepository.save(mrcSentence);
         return exerciseRepository.findById(id).map(exerciseMapper::map);

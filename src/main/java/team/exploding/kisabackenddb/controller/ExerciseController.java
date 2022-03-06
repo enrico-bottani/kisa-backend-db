@@ -24,6 +24,11 @@ public class ExerciseController {
         return ResponseEntity.of(exerciseService.findById(id));
     }
     @CrossOrigin
+    @PostMapping(value = "/exercises.json")
+    public ResponseEntity<ExerciseDTO> newExercise(){
+        return ResponseEntity.of(exerciseService.addNew());
+    }
+    @CrossOrigin
     @PostMapping(value = "/exercises/{id}/mrc_sentence.json")
     public ResponseEntity<ExerciseDTO> addSentenceToExerciseHavingId(@PathVariable(name = "id") long id){
         return ResponseEntity.of(exerciseService.addSentenceToExerciseHavingId(id));

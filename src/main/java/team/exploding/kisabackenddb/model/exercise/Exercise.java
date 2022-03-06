@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import team.exploding.kisabackenddb.model.assignables.Assignable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,7 +23,7 @@ public class Exercise {
     private Long id;
 
     @OneToMany(mappedBy = "exercise",fetch = FetchType.LAZY)
-    List<ExercisePage> pages;
+    List<ExercisePage> pages = new ArrayList<>();
 
     String title;
 }
