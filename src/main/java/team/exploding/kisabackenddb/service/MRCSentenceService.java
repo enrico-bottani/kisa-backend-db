@@ -62,4 +62,8 @@ public class MRCSentenceService {
         return mrcSentenceRepository
                 .findById(sentenceId).map(mrcSentenceMapper::map);
     }
+
+    public void deleteById(long id) {
+        mrcSentenceRepository.deleteById(id);
+    }
 }
