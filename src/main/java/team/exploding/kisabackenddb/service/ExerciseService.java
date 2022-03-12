@@ -30,7 +30,7 @@ public class ExerciseService {
     }
 
 
-    public List<ExerciseDTO> finAll(){
+    public List<ExerciseDTO> findAll(){
         return exerciseRepository.findAll().stream()
                 .map(exerciseMapper::map).collect(Collectors.toList());
     }

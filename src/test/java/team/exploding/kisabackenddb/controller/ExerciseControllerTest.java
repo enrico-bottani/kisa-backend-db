@@ -3,7 +3,6 @@ package team.exploding.kisabackenddb.controller;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,9 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
 import team.exploding.kisabackenddb.service.ExerciseService;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
 
 @WebMvcTest(controllers = ExerciseController.class)
 public class ExerciseControllerTest {
@@ -35,7 +32,7 @@ public class ExerciseControllerTest {
     @DisplayName("Should List all the exercises when making GET request to endpoint - /exercises.json")
     public void shouldListAllExercises() throws Exception{
 
-        Mockito.when(exerciseService.finAll()).thenReturn(List.of(ExerciseDTO.builder().id(123L).build()));
+        Mockito.when(exerciseService.findAll()).thenReturn(List.of(ExerciseDTO.builder().id(123L).build()));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/exercises.json"))
                 .andExpect(MockMvcResultMatchers.status().is(200))

@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import team.exploding.kisabackenddb.dto.AttemptAnswerMapDTO;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
 import team.exploding.kisabackenddb.service.ExerciseService;
-import team.exploding.kisabackenddb.service.MRCAttemptService;
 
 import java.util.List;
 
@@ -36,6 +34,6 @@ public class ExerciseController {
     @CrossOrigin
     @GetMapping(value = "/exercises.json")
     public ResponseEntity<List<ExerciseDTO>> getAll(){
-        return ResponseEntity.ok(exerciseService.finAll());
+        return ResponseEntity.ok(exerciseService.findAll());
     }
 }
