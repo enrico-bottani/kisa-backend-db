@@ -3,16 +3,14 @@ package team.exploding.kisabackenddb.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
 import team.exploding.kisabackenddb.service.ExerciseService;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/api")
 public class ExerciseController {
     @Autowired
     ExerciseService exerciseService;
