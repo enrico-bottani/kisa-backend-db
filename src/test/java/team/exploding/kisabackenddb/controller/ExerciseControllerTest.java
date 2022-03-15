@@ -16,7 +16,9 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import team.exploding.kisabackenddb.dto.epage.MRCSentenceDTO;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
+import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 import team.exploding.kisabackenddb.service.ExerciseService;
 
 import java.util.List;
@@ -38,10 +40,10 @@ public class ExerciseControllerTest {
 
 
     @Test
-    @DisplayName("Should List all the exercises when making GET request to endpoint - /api/exercises.json")
+    @DisplayName("Should List all the exercises when making GET request to endpoint - /exercises.json")
     public void shouldListAllExercises() throws Exception {
         Mockito.when(exerciseService.findAll()).thenReturn(List.of(ExerciseDTO.builder().id(123L).build()));
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/exercises.json"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/exercises.json"))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()", Matchers.is(1)))
@@ -49,16 +51,16 @@ public class ExerciseControllerTest {
     }
 
     @Test
-    @DisplayName("Should List all the exercises when making GET request to endpoint - /api/exercises.json")
+    @DisplayName("Should List all the exercises when making GET request to endpoint - /exercises.json")
     public void post() throws Exception {
         Mockito.when(
                 exerciseService.addSentenceToExerciseHavingId(123)).thenReturn(
-                Optional.ofNullable(ExerciseDTO.builder().id(123L).title("test").build())
+                Optional.ofNullable(MRCSentence.builder().id(4L).build())
         );
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/exercises/123/mrc_sentence.json"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/exercises/123/mrc_sentence.json"))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.title", Matchers.is("test")));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(4)));
     }
 
 }

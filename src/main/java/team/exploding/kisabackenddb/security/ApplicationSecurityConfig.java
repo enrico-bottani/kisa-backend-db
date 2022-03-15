@@ -36,10 +36,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
         http.cors().and().authorizeHttpRequests()
+                .antMatchers(HttpMethod.POST,"/exercises/**").authenticated()
                 .anyRequest().permitAll()
                 .and().formLogin()
+                .and().httpBasic()
                 .and().csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }

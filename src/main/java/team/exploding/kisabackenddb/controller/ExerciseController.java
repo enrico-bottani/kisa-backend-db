@@ -5,12 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
+import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 import team.exploding.kisabackenddb.service.ExerciseService;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/api")
 public class ExerciseController {
     @Autowired
     ExerciseService exerciseService;
@@ -22,11 +22,11 @@ public class ExerciseController {
     @CrossOrigin
     @PostMapping(value = "/exercises.json")
     public ResponseEntity<ExerciseDTO> newExercise(){
-        return ResponseEntity.of(exerciseService.addNew());
+        return ResponseEntity.of(exerciseService.addNew(ExerciseDTO.builder().title("test").build()));
     }
     @CrossOrigin
     @PostMapping(value = "/exercises/{id}/mrc_sentence.json")
-    public ResponseEntity<ExerciseDTO> addSentenceToExerciseHavingId(@PathVariable(name = "id") long id){
+    public ResponseEntity<MRCSentence> addSentenceToExerciseHavingId(@PathVariable(name = "id") long id){
         return ResponseEntity.of(exerciseService.addSentenceToExerciseHavingId(id));
     }
     @CrossOrigin

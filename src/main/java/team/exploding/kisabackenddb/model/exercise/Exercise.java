@@ -22,7 +22,7 @@ public class Exercise {
     @Column(name = "ID", updatable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "exercise",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "exercise",fetch = FetchType.EAGER)
     List<ExercisePage> pages = new ArrayList<>();
 
     String title;
