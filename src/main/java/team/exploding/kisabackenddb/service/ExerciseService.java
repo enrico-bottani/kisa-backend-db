@@ -56,10 +56,7 @@ public class ExerciseService {
         if (optexercise.isEmpty()) return Optional.empty();
         var exercise = optexercise.get();
         var exPages = exercise.getPages();
-        var position = 0;
-        if (exPages != null && exPages.size() > 0) position = exPages.get(exPages.size() - 1).getPosition() + 1;
         var mrcSentence = MRCSentence.builder()
-                .position(position)
                 .exercise(exercise).build();
         return Optional.of(mrcSentenceRepository.save(mrcSentence));
     }

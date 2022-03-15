@@ -18,7 +18,6 @@ public class EPageMapper {
         if (e instanceof MRCSentence){
             MRCSentence mrcSentence = (MRCSentence) e;
             return MRCSentenceDTO.builder().id(e.getId())
-                    .position(e.getPosition())
                     .assignables(mrcSentence.getAssignables()==null?
                             new ArrayList<>()
                             :
@@ -27,7 +26,6 @@ public class EPageMapper {
                     .build();
         }
        return ExercisePageDTO.builder()
-               .position(e.getPosition())
                .id(e.getId()).build();
     }
 }
