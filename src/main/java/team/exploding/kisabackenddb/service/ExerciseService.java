@@ -22,17 +22,26 @@ public class ExerciseService {
     MRCSentenceRepository mrcSentenceRepository;
     @Autowired
     ExerciseMapper exerciseMapper;
+
     @Transactional
-    public Optional<ExerciseDTO> findById(long id){
+    public Optional<ExerciseDTO> findById(long id) {
         return exerciseRepository.findById(id).map(exerciseMapper::map);
     }
 
-    public Optional<ExerciseDTO> addNew(ExerciseDTO exerciseDTO){
-        return Optional.of(exerciseRepository.save(Exercise.builder().title(exerciseDTO.getTitle()).build())).map(exerciseMapper::map);
+    public Optional<ExerciseDTO> addNewExercise(ExerciseDTO exerciseDTO) {
+        if (exerciseDTO == null) {
+            return Optional.empty();
+        }
+
+        var title = "";
+        if (exerciseDTO.getTitle() != null) title = exerciseDTO.getTitle();
+
+        return Optional.of(exerciseRepository.save(Exercise.builder().title(title).build()))
+                .map(exerciseMapper::map);
     }
 
     @Transactional(readOnly = true)
-    public List<ExerciseDTO> findAll(){
+    public List<ExerciseDTO> findAll() {
         return exerciseRepository.findAll().stream()
                 .map(exerciseMapper::map).collect(Collectors.toList());
     }
@@ -40,17 +49,18 @@ public class ExerciseService {
     public Optional<MRCSentence> addSentenceToExerciseHavingId(long id) {
         return saveNewSentenceToExerciseId(id);
     }
+
     @Transactional(readOnly = false)
     Optional<MRCSentence> saveNewSentenceToExerciseId(long id) {
-        var optexercise= exerciseRepository.findById(id);
+        var optexercise = exerciseRepository.findById(id);
         if (optexercise.isEmpty()) return Optional.empty();
         var exercise = optexercise.get();
         var exPages = exercise.getPages();
-        var position=0;
-        if (exPages!=null && exPages.size()>0) position = exPages.get(exPages.size()-1).getPosition()+1;
+        var position = 0;
+        if (exPages != null && exPages.size() > 0) position = exPages.get(exPages.size() - 1).getPosition() + 1;
         var mrcSentence = MRCSentence.builder()
                 .position(position)
                 .exercise(exercise).build();
-       return Optional.of(mrcSentenceRepository.save(mrcSentence));
+        return Optional.of(mrcSentenceRepository.save(mrcSentence));
     }
 }

@@ -8,6 +8,7 @@ import team.exploding.kisabackenddb.dto.epage.MRCSentenceDTO;
 import team.exploding.kisabackenddb.service.MRCSentenceService;
 
 @Controller
+@RequestMapping("/api")
 public class MRCSentenceController {
     @Autowired
     MRCSentenceService mrcSentenceService;

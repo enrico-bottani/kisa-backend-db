@@ -43,7 +43,7 @@ public class ExerciseControllerTest {
     @DisplayName("Should List all the exercises when making GET request to endpoint - /exercises.json")
     public void shouldListAllExercises() throws Exception {
         Mockito.when(exerciseService.findAll()).thenReturn(List.of(ExerciseDTO.builder().id(123L).build()));
-        mockMvc.perform(MockMvcRequestBuilders.get("/exercises.json"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/exercises.json"))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()", Matchers.is(1)))
@@ -57,7 +57,7 @@ public class ExerciseControllerTest {
                 exerciseService.addSentenceToExerciseHavingId(123)).thenReturn(
                 Optional.ofNullable(MRCSentence.builder().id(4L).build())
         );
-        mockMvc.perform(MockMvcRequestBuilders.post("/exercises/123/mrc_sentence.json"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/exercises/123/mrc_sentence.json"))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(4)));

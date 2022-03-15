@@ -11,6 +11,7 @@ import team.exploding.kisabackenddb.service.MRCAnswerableItemService;
 import team.exploding.kisabackenddb.service.MRCAnswerableService;
 
 @Controller
+@RequestMapping("/api")
 public class AnswerableController {
     @Autowired
     MRCAnswerableService mrcAnswerableService;

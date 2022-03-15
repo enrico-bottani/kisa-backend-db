@@ -13,6 +13,7 @@ import team.exploding.kisabackenddb.service.MRCSentenceService;
 import team.exploding.kisabackenddb.service.STRConstantService;
 
 @Controller
+@RequestMapping("/api")
 public class STRConstantController {
     @Autowired
     STRConstantService strConstantService;

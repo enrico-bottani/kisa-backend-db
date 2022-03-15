@@ -11,6 +11,7 @@ import team.exploding.kisabackenddb.service.ExerciseService;
 import java.util.List;
 
 @Controller
+@RequestMapping("/api")
 public class ExerciseController {
     @Autowired
     ExerciseService exerciseService;
@@ -21,8 +22,8 @@ public class ExerciseController {
     }
     @CrossOrigin
     @PostMapping(value = "/exercises.json")
-    public ResponseEntity<ExerciseDTO> newExercise(){
-        return ResponseEntity.of(exerciseService.addNew(ExerciseDTO.builder().title("test").build()));
+    public ResponseEntity<ExerciseDTO> addNewExercise(@RequestBody ExerciseDTO exerciseDTO){
+        return ResponseEntity.of(exerciseService.addNewExercise(exerciseDTO));
     }
     @CrossOrigin
     @PostMapping(value = "/exercises/{id}/mrc_sentence.json")
