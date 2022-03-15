@@ -1,4 +1,4 @@
-package team.exploding.kisabackenddb.model;
+package team.exploding.kisabackenddb.model.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,16 +20,18 @@ public class KisaUserDetails implements UserDetails {
 
 
     String username;
-
+    String password;
+    boolean active;
+    List<GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_TEACHER"));
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return new BCryptPasswordEncoder(10).encode("pass");
+        return password;
     }
 
     @Override
@@ -39,21 +41,21 @@ public class KisaUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return active;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return active;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return active;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return active;
     }
 }

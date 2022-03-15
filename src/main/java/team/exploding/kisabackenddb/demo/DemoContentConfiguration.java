@@ -10,6 +10,7 @@ import team.exploding.kisabackenddb.model.assignables.constant.STRConstant;
 import team.exploding.kisabackenddb.model.exercise.Exercise;
 import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 import team.exploding.kisabackenddb.repository.*;
+import team.exploding.kisabackenddb.service.KisaUserDetailsService;
 
 @Configuration
 
@@ -22,8 +23,11 @@ public class DemoContentConfiguration {
                                         MRCAnswerableRepository mrcAnswerableRepository,
                                         MRCAnswerableItemRepository mrcAnswerableItemRepository,
                                         MRCChoosenItemRepository mrcChoosenItemRepository,
+                                        KisaUserDetailsService kisaUserDetailsService,
                                         AttemptRepository attemptRepository) {
         return args -> {
+            kisaUserDetailsService.saveUsername("Enrico","Password");
+
             var kuser = KUser.builder().firstName("Enrico").build();
             kuserRepository.save(kuser);
             var attempt = Attempt.builder().closed(false).user(kuser).build();
