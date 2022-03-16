@@ -1,11 +1,13 @@
 package team.exploding.kisabackenddb.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
 import team.exploding.kisabackenddb.mapper.editor.ExerciseMapper;
 import team.exploding.kisabackenddb.model.exercise.Exercise;
+import team.exploding.kisabackenddb.model.security.KisaUserDetails;
 import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 import team.exploding.kisabackenddb.repository.ExerciseRepository;
 import team.exploding.kisabackenddb.repository.MRCSentenceRepository;
@@ -55,7 +57,7 @@ public class ExerciseService {
         var optexercise = exerciseRepository.findById(id);
         if (optexercise.isEmpty()) return Optional.empty();
         var exercise = optexercise.get();
-        var exPages = exercise.getPages();
+
         var mrcSentence = MRCSentence.builder()
                 .exercise(exercise).build();
         return Optional.of(mrcSentenceRepository.save(mrcSentence));

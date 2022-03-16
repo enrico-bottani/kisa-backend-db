@@ -26,14 +26,15 @@ public class DemoContentConfiguration {
                                         KisaUserDetailsService kisaUserDetailsService,
                                         AttemptRepository attemptRepository) {
         return args -> {
-            kisaUserDetailsService.saveUsername("Enrico","Password");
+           var user = kisaUserDetailsService.saveUsername("Enrico","Password");
 
-            var kuser = KUser.builder().firstName("Enrico").build();
+           /* var kuser = KUser.builder().firstName("Enrico").build();
             kuserRepository.save(kuser);
             var attempt = Attempt.builder().closed(false).user(kuser).build();
-            attemptRepository.save(attempt);
+            attemptRepository.save(attempt);*/
 
-            var exercise = Exercise.builder().title("Put in the correct preposition").build();
+            var exercise = Exercise.builder().title("Put in the correct preposition")
+                    .author(user).build();
             exerciseRepository.save(exercise);
 
             var mrcSentence = MRCSentence.builder().exercise(exercise).build();
@@ -50,10 +51,10 @@ public class DemoContentConfiguration {
             var mrcAI_be = MRCAnswerableItem.builder().choice("be").mrcAnswerable(mrc).build();
             mrcAnswerableItemRepository.save(mrcAI_be);
             mrcAnswerableItemRepository.save(mrcAI_to);
-            var choosenAnswer = MRCChoosenItem.builder().mrcAnswerableItem(mrcAI_be).attempt(attempt).build();
+           /* var choosenAnswer = MRCChoosenItem.builder().mrcAnswerableItem(mrcAI_be).attempt(attempt).build();
             mrcChoosenItemRepository.save(choosenAnswer);
             choosenAnswer = MRCChoosenItem.builder().mrcAnswerableItem(mrcAI_to).attempt(attempt).build();
-            mrcChoosenItemRepository.save(choosenAnswer);
+            mrcChoosenItemRepository.save(choosenAnswer);*/
         };
     }
 }

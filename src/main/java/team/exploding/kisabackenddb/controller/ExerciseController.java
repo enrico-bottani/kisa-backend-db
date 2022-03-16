@@ -2,9 +2,11 @@ package team.exploding.kisabackenddb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
+import team.exploding.kisabackenddb.model.security.KisaUserDetails;
 import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 import team.exploding.kisabackenddb.service.ExerciseService;
 

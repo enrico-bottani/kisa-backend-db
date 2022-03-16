@@ -8,7 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import team.exploding.kisabackenddb.mapper.security.KisaUserDetailsMapper;
 import team.exploding.kisabackenddb.model.security.KisaUserDatailsEntity;
-import team.exploding.kisabackenddb.model.security.KisaUserDetails;
 import team.exploding.kisabackenddb.repository.KisaUserDatailsEntityRepository;
 
 @Service
@@ -23,9 +22,10 @@ public class KisaUserDetailsService implements UserDetailsService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public void saveUsername(String username, String password){
-        kisaUserDatailsEntityRepository.save(KisaUserDatailsEntity.builder()
-                .userName(username).password(passwordEncoder.encode(password)).active(true).roles("ROLE_TEACHER").build());
+    public KisaUserDatailsEntity saveUsername(String username, String password) {
+        return kisaUserDatailsEntityRepository.save(KisaUserDatailsEntity.builder()
+                .userName(username).password(passwordEncoder.encode(password))
+                .active(true).roles("ROLE_TEACHER").build());
     }
 
     @Override
@@ -34,7 +34,7 @@ public class KisaUserDetailsService implements UserDetailsService {
                 kisaUserDatailsEntityRepository.findByUserName(username);
 
         return kisaUserDetailsMapper.map(userEntity
-                .orElseThrow(() -> new UsernameNotFoundException("Username "+username+" not found")));
+                .orElseThrow(() -> new UsernameNotFoundException("Username " + username + " not found")));
     }
 
 

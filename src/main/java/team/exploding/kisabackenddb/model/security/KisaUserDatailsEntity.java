@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import team.exploding.kisabackenddb.model.exercise.Exercise;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "USER_DETAILS")
@@ -25,5 +25,6 @@ public class KisaUserDatailsEntity {
     private boolean active;
 
     private String roles;
-
+    @OneToMany(mappedBy = "author",fetch = FetchType.EAGER)
+    List<Exercise> exercises = new ArrayList<>();
 }
