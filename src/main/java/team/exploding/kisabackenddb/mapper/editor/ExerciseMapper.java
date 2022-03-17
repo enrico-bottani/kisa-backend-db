@@ -23,8 +23,6 @@ public class ExerciseMapper {
     KisaUserDetailsMapper kisaUserDetailsMapper;
 
     public ExerciseDTO map(Exercise e) {
-        System.out.println("security context: " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
         List<ExercisePageDTO> pages = e.getPages() == null ?
                 new ArrayList<>() : e.getPages().stream().map(ePageMapper::map).collect(Collectors.toList());
         return ExerciseDTO.builder()

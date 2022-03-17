@@ -2,13 +2,13 @@ package team.exploding.kisabackenddb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import team.exploding.kisabackenddb.dto.epage.MRCSentenceDTO;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
-import team.exploding.kisabackenddb.model.security.KisaUserDetails;
 import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 import team.exploding.kisabackenddb.service.ExerciseService;
+import team.exploding.kisabackenddb.service.UserCheckService;
 
 import java.util.List;
 
@@ -17,24 +17,32 @@ import java.util.List;
 public class ExerciseController {
     @Autowired
     ExerciseService exerciseService;
+    @Autowired
+    UserCheckService userCheckService;
+
     @CrossOrigin
     @GetMapping(value = "/exercises/{id}.json")
-    public ResponseEntity<ExerciseDTO> getById(@PathVariable(name = "id") long id){
+    public ResponseEntity<ExerciseDTO> getById(@PathVariable(name = "id") long id) {
         return ResponseEntity.of(exerciseService.findById(id));
     }
+
     @CrossOrigin
     @PostMapping(value = "/exercises.json")
-    public ResponseEntity<ExerciseDTO> addNewExercise(@RequestBody ExerciseDTO exerciseDTO){
-        return ResponseEntity.of(exerciseService.addNewExercise(exerciseDTO));
+    public ResponseEntity<ExerciseDTO> addNewExercise(@RequestBody ExerciseDTO exerciseDTO) {
+        String user = userCheckService.getUserNameOrElseThrowException();
+        return ResponseEntity.of(exerciseService.addNewExercise(exerciseDTO, user));
     }
+
     @CrossOrigin
     @PostMapping(value = "/exercises/{id}/mrc_sentence.json")
-    public ResponseEntity<MRCSentence> addSentenceToExerciseHavingId(@PathVariable(name = "id") long id){
-        return ResponseEntity.of(exerciseService.addSentenceToExerciseHavingId(id));
+    public ResponseEntity<MRCSentenceDTO> addSentenceToExerciseHavingId(@PathVariable(name = "id") long id) {
+        String user = userCheckService.getUserNameOrElseThrowException();
+        return ResponseEntity.of(exerciseService.addSentenceToExerciseHavingId(id,user));
     }
+
     @CrossOrigin
     @GetMapping(value = "/exercises.json")
-    public ResponseEntity<List<ExerciseDTO>> getAll(){
+    public ResponseEntity<List<ExerciseDTO>> getAll() {
         return ResponseEntity.ok(exerciseService.findAll());
     }
 }

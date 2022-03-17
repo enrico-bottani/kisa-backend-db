@@ -3,6 +3,7 @@ package team.exploding.kisabackenddb.controller;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,6 +21,7 @@ import team.exploding.kisabackenddb.dto.epage.MRCSentenceDTO;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
 import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 import team.exploding.kisabackenddb.service.ExerciseService;
+import team.exploding.kisabackenddb.service.UserCheckService;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +34,8 @@ public class ExerciseControllerTest {
     @MockBean
     private ExerciseService exerciseService;
     @MockBean
+    private UserCheckService userCheckService;
+    @MockBean
     PasswordEncoder passwordEncoder;
     @MockBean
     private UserDetailsService userDetailsService;
@@ -43,6 +47,7 @@ public class ExerciseControllerTest {
     @DisplayName("Should List all the exercises when making GET request to endpoint - /exercises.json")
     public void shouldListAllExercises() throws Exception {
         Mockito.when(exerciseService.findAll()).thenReturn(List.of(ExerciseDTO.builder().id(123L).build()));
+        Mockito.when(userCheckService.getUserNameOrElseThrowException()).thenReturn("Enrico");
         mockMvc.perform(MockMvcRequestBuilders.get("/api/exercises.json"))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -54,9 +59,10 @@ public class ExerciseControllerTest {
     @DisplayName("Should List all the exercises when making GET request to endpoint - /exercises.json")
     public void post() throws Exception {
         Mockito.when(
-                exerciseService.addSentenceToExerciseHavingId(123)).thenReturn(
-                Optional.ofNullable(MRCSentence.builder().id(4L).build())
+                exerciseService.addSentenceToExerciseHavingId(123,"Enrico")).thenReturn(
+                Optional.ofNullable(MRCSentenceDTO.builder().id(4L).build())
         );
+        Mockito.when(userCheckService.getUserNameOrElseThrowException()).thenReturn("Enrico");
         mockMvc.perform(MockMvcRequestBuilders.post("/api/exercises/123/mrc_sentence.json"))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
