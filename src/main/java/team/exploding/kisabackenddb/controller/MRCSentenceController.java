@@ -8,23 +8,24 @@ import team.exploding.kisabackenddb.dto.epage.MRCSentenceDTO;
 import team.exploding.kisabackenddb.service.MRCSentenceService;
 
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/api/mrc_sentence")
 public class MRCSentenceController {
     @Autowired
     MRCSentenceService mrcSentenceService;
+    /*
     @CrossOrigin
-    @GetMapping(value = "/sentence/{id}.json")
+    @GetMapping(value = "/{id}.json")
     public ResponseEntity<MRCSentenceDTO> getById(@PathVariable(name = "id") long id){
         return ResponseEntity.of(mrcSentenceService.findById(id));
-    }
+    }*/
     @CrossOrigin
-    @DeleteMapping(value = "/sentence/{id}.json")
+    @DeleteMapping(value = "/{id}.json")
     public ResponseEntity<Object> daleteById(@PathVariable(name = "id") long id){
         mrcSentenceService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
     @CrossOrigin
-    @PostMapping(value = "/sentence/{id}/assignable.json")
+    @PostMapping(value = "/{id}/assignable.json")
     public ResponseEntity<MRCSentenceDTO> addAssignable(@PathVariable(name = "id") long id){
         return ResponseEntity.of(mrcSentenceService.addAssignableBySentenceId(id));
     }

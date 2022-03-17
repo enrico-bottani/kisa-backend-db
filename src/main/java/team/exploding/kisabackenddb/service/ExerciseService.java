@@ -34,7 +34,7 @@ public class ExerciseService {
 
     @Transactional
     public Optional<ExerciseDTO> findById(long id) {
-        return exerciseRepository.findById(id).map(exerciseMapper::map);
+        return exerciseRepository.findExerciseById(id).map(exerciseMapper::map);
     }
 
     public Optional<ExerciseDTO> addNewExercise(ExerciseDTO exerciseDTO, String username) {

@@ -17,7 +17,7 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "EXERCISE_PAGE")
+@Table(name = "PAGE__")
 public class ExercisePage {
     @Id
     @GeneratedValue

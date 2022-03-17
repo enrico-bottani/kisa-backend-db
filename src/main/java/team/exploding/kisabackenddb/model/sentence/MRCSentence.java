@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "MRC_SENTENCE")
+@Table(name = "PAGE_SENTENCE_MRC")
 public class MRCSentence extends ExercisePage {
     @Id
     @GeneratedValue
