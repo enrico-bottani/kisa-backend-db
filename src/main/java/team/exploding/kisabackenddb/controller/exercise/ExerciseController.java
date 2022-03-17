@@ -1,4 +1,4 @@
-package team.exploding.kisabackenddb.controller;
+package team.exploding.kisabackenddb.controller.exercise;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

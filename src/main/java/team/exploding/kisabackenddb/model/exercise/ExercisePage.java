@@ -4,11 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import team.exploding.kisabackenddb.model.KUser;
-import team.exploding.kisabackenddb.model.assignables.Assignable;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

@@ -1,6 +1,7 @@
 package team.exploding.kisabackenddb.model;
 
 import lombok.*;
+import team.exploding.kisabackenddb.model.security.KisaUserDatailsEntity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Attempt {
 
     @ManyToOne
     @JoinColumn(name="USER_ID", nullable=false)
-    private KUser user;
+    private KisaUserDatailsEntity user;
     boolean closed = false;
 
     @OneToMany(mappedBy = "attempt",fetch = FetchType.LAZY)

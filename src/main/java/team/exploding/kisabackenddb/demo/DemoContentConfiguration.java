@@ -16,8 +16,7 @@ import team.exploding.kisabackenddb.service.KisaUserDetailsService;
 
 public class DemoContentConfiguration {
     @Bean
-    CommandLineRunner commandLineRunner(KUserRepository kuserRepository,
-                                        ExerciseRepository exerciseRepository,
+    CommandLineRunner commandLineRunner(ExerciseRepository exerciseRepository,
                                         STRConstantRepository strConstantRepository,
                                         MRCSentenceRepository mrcSentenceRepository,
                                         MRCAnswerableRepository mrcAnswerableRepository,
