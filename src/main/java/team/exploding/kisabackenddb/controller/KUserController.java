@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import team.exploding.kisabackenddb.dto.KisaUserDatailsEntityDTO;
-import team.exploding.kisabackenddb.service.KisaUserDetailsService;
 import team.exploding.kisabackenddb.service.UserCheckService;
 
 @Controller
@@ -17,9 +16,9 @@ public class KUserController {
     UserCheckService userCheckService;
 
     @CrossOrigin
-    @GetMapping(value = "/username.json")
-    public ResponseEntity<String> getCurrentUserName(){
+    @GetMapping(value = "/user.json")
+    public ResponseEntity<KisaUserDatailsEntityDTO> getCurrentUserName(){
         String username = userCheckService.getUserNameOrElseThrowException();
-        return ResponseEntity.ok(username);
+        return ResponseEntity.ok(KisaUserDatailsEntityDTO.builder().userName(username).build());
     }
 }
