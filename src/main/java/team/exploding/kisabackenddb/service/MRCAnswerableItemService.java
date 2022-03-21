@@ -6,9 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import team.exploding.kisabackenddb.dto.epage.MRCAnswerableItemDTO;
 import team.exploding.kisabackenddb.mapper.editor.MRCAnswerableItemMapper;
 import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerableItem;
-import team.exploding.kisabackenddb.repository.MRCAnswerableItemRepository;
+import team.exploding.kisabackenddb.repository.assignables.MRCAnswerableItemRepository;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service

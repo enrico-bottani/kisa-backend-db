@@ -1,10 +1,13 @@
 package team.exploding.kisabackenddb.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 import team.exploding.kisabackenddb.dto.epage.MRCSentenceDTO;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
 import team.exploding.kisabackenddb.mapper.MRCSentenceMapper;
@@ -37,10 +40,11 @@ public class ExerciseService {
         return exerciseRepository.findExerciseById(id).map(exerciseMapper::map);
     }
 
+    // Aggiungi un nuovo esercizio
     public Optional<ExerciseDTO> addNewExercise(ExerciseDTO exerciseDTO, String username) {
         var user = userDetailsRepository.findByUserName(username);
         if (exerciseDTO == null || user.isEmpty()) {
-            return Optional.empty();
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
         var title = "";
@@ -57,20 +61,20 @@ public class ExerciseService {
                 .map(exerciseMapper::map).collect(Collectors.toList());
     }
 
-    public Optional<MRCSentenceDTO> addSentenceToExerciseHavingId(long id, String userName) {
-        return saveNewSentenceToExerciseId(id, userName).map(mrcSentenceMapper::map);
-    }
 
     @Transactional(readOnly = false)
-    Optional<MRCSentence> saveNewSentenceToExerciseId(long id, String userName) {
+    public Optional<MRCSentenceDTO> addSentenceToExerciseHavingId(long id, String userName) {
         var optexercise = exerciseRepository.findById(id);
-        if (optexercise.isEmpty() || !optexercise.get().getAuthor().getUserName().equals(userName))
+        if (optexercise.isEmpty()) {
             return Optional.empty();
-
+        }
+        if (!optexercise.get().getAuthor().getUserName().equals(userName)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         var exercise = optexercise.get();
 
         var mrcSentence = MRCSentence.builder()
                 .exercise(exercise).build();
-        return Optional.of(mrcSentenceRepository.save(mrcSentence));
+        return Optional.of(mrcSentenceRepository.save(mrcSentence)).map(mrcSentenceMapper::map);
     }
 }

@@ -2,19 +2,15 @@ package team.exploding.kisabackenddb.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import team.exploding.kisabackenddb.dto.AssignableDTO;
 import team.exploding.kisabackenddb.dto.epage.MRCSentenceDTO;
 import team.exploding.kisabackenddb.mapper.MRCSentenceMapper;
-import team.exploding.kisabackenddb.model.assignables.Assignable;
 import team.exploding.kisabackenddb.model.assignables.AssignableType;
 import team.exploding.kisabackenddb.model.assignables.constant.STRConstant;
 import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerable;
-import team.exploding.kisabackenddb.model.sentence.MRCSentence;
-import team.exploding.kisabackenddb.repository.MRCAnswerableRepository;
+import team.exploding.kisabackenddb.repository.assignables.MRCAnswerableRepository;
 import team.exploding.kisabackenddb.repository.MRCSentenceRepository;
-import team.exploding.kisabackenddb.repository.STRConstantRepository;
+import team.exploding.kisabackenddb.repository.assignables.STRConstantRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,13 +29,13 @@ public class MRCSentenceService {
     }
 
     public Optional<MRCSentenceDTO> addAssignableBySentenceId(long sentenceId) {
-        var optMrc = mrcSentenceRepository
+        var optMRCSentence = mrcSentenceRepository
                 .findById(sentenceId);
-        if (optMrc.isEmpty()) {
-            return optMrc.map(mrcSentenceMapper::map);
+        if (optMRCSentence.isEmpty()) {
+            return optMRCSentence.map(mrcSentenceMapper::map);
         }
-        var mrc = optMrc.get();
-        var assignables = mrc.getAssignables();
+        var mrcSentence = optMRCSentence.get();
+        var assignables = mrcSentence.getAssignables();
         var assignableSize = assignables.size();
         var lastAssignableType = AssignableType.RC_ANSWERABLE.toString();
         if (assignableSize != 0) {
@@ -48,7 +44,7 @@ public class MRCSentenceService {
         if (lastAssignableType.equals(AssignableType.RC_ANSWERABLE.toString())){
             var strToAdd = new STRConstant();
             strToAdd.setPosition(assignableSize);
-            strToAdd.setMrcSentence(mrc);
+            strToAdd.setMrcSentence(mrcSentence);
             // Save this assignable
             strConstantRepository.save(strToAdd);
             return mrcSentenceRepository
@@ -56,7 +52,7 @@ public class MRCSentenceService {
         }
         var strToAdd = new MRCAnswerable();
         strToAdd.setPosition(assignableSize);
-        strToAdd.setMrcSentence(mrc);
+        strToAdd.setMrcSentence(mrcSentence);
         // Save this assignable
         mrcAnswerableRepository.save(strToAdd);
         return mrcSentenceRepository

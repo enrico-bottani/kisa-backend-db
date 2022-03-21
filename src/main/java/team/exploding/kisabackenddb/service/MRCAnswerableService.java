@@ -3,13 +3,10 @@ package team.exploding.kisabackenddb.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.exploding.kisabackenddb.dto.AssignableDTO;
-import team.exploding.kisabackenddb.dto.MRCAnswerableDTO;
 import team.exploding.kisabackenddb.mapper.editor.AssignableMapper;
-import team.exploding.kisabackenddb.model.assignables.Assignable;
-import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerable;
 import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerableItem;
-import team.exploding.kisabackenddb.repository.MRCAnswerableItemRepository;
-import team.exploding.kisabackenddb.repository.MRCAnswerableRepository;
+import team.exploding.kisabackenddb.repository.assignables.MRCAnswerableItemRepository;
+import team.exploding.kisabackenddb.repository.assignables.MRCAnswerableRepository;
 
 import java.util.Optional;
 

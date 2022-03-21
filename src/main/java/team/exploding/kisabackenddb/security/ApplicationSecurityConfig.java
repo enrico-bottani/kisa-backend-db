@@ -3,6 +3,7 @@ package team.exploding.kisabackenddb.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -38,9 +39,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().authorizeRequests()
                 .antMatchers("/api/auth/**").authenticated()
+                .antMatchers(HttpMethod.POST,"/api/**").authenticated()
+                .antMatchers(HttpMethod.PUT,"/api/**").authenticated()
+                .antMatchers(HttpMethod.DELETE,"/api/**").authenticated()
                 .anyRequest().permitAll()
                 .and().formLogin()
-                .and().httpBasic()
+              //  .and().httpBasic()
                 .and().csrf()
                 .disable();
                 //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
@@ -49,7 +53,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","OPTIONS"));
         configuration.addAllowedHeader("X-Requested-With");
         configuration.addAllowedHeader("Content-Type");
         configuration.addAllowedHeader("X-XSRF-TOKEN");

@@ -3,13 +3,15 @@ package team.exploding.kisabackenddb.demo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import team.exploding.kisabackenddb.model.*;
 import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerable;
 import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerableItem;
 import team.exploding.kisabackenddb.model.assignables.constant.STRConstant;
 import team.exploding.kisabackenddb.model.exercise.Exercise;
 import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 import team.exploding.kisabackenddb.repository.*;
+import team.exploding.kisabackenddb.repository.assignables.MRCAnswerableItemRepository;
+import team.exploding.kisabackenddb.repository.assignables.MRCAnswerableRepository;
+import team.exploding.kisabackenddb.repository.assignables.STRConstantRepository;
 import team.exploding.kisabackenddb.service.KisaUserDetailsService;
 
 @Configuration
@@ -21,11 +23,11 @@ public class DemoContentConfiguration {
                                         MRCSentenceRepository mrcSentenceRepository,
                                         MRCAnswerableRepository mrcAnswerableRepository,
                                         MRCAnswerableItemRepository mrcAnswerableItemRepository,
-                                        MRCChoosenItemRepository mrcChoosenItemRepository,
-                                        KisaUserDetailsService kisaUserDetailsService,
-                                        AttemptRepository attemptRepository) {
+                                        KisaUserDetailsService kisaUserDetailsService
+                                        ) {
         return args -> {
            var user = kisaUserDetailsService.saveUsername("Enrico","Password");
+           var sue = kisaUserDetailsService.saveUsername("Sue","Password");
 
            /* var kuser = KUser.builder().firstName("Enrico").build();
             kuserRepository.save(kuser);
