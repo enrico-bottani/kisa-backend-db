@@ -44,7 +44,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/api/**").authenticated()
                 .anyRequest().permitAll()
                 .and().formLogin()
-              //  .and().httpBasic()
+                .and().httpBasic()
                 .and().csrf()
                 .disable();
                 //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());

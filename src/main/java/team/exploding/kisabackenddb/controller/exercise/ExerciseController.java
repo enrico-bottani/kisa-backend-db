@@ -31,18 +31,10 @@ public class ExerciseController {
     }
 
     @CrossOrigin
-    @PostMapping(value = "/exercises.json")
-    public ResponseEntity<ExerciseDTO> addNewExercise(@RequestBody ExerciseDTO exerciseDTO) {
-        String user = userCheckService.getUserNameOrElseThrowException();
-        return ResponseEntity.of(exerciseService.addNewExercise(exerciseDTO, user));
-    }
-
-    @CrossOrigin
     @PostMapping(value = "/exercises/{id}/mrc_sentence.json")
     public ResponseEntity<MRCSentenceDTO> addSentenceToExerciseHavingId(@PathVariable(name = "id") long id) {
         String user = userCheckService.getUserNameOrElseThrowException();
-            ResponseEntity.of(exerciseService.addSentenceToExerciseHavingId(id,user));
-        return ResponseEntity.of(Optional.empty());
+        return ResponseEntity.of(exerciseService.addSentenceToExerciseHavingId(id, user));
     }
 
     @CrossOrigin

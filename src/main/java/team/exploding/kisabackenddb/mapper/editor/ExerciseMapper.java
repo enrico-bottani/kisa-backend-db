@@ -28,7 +28,6 @@ public class ExerciseMapper {
         return ExerciseDTO.builder()
                 .id(e.getId())
                 .title(e.getTitle())
-                .author(kisaUserDetailsMapper.mapToDTO(e.getAuthor()))
                 .pages(pages)
                 .build();
     }

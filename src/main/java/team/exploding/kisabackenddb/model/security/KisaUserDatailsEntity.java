@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import team.exploding.kisabackenddb.model.exercise.Exercise;
+import team.exploding.kisabackenddb.model.series.Series;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,5 +27,5 @@ public class KisaUserDatailsEntity {
 
     private String roles;
     @OneToMany(mappedBy = "author",fetch = FetchType.EAGER)
-    List<Exercise> exercises = new ArrayList<>();
+    List<Series> series = new ArrayList<>();
 }

@@ -8,6 +8,7 @@ import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerableItem;
 import team.exploding.kisabackenddb.model.assignables.constant.STRConstant;
 import team.exploding.kisabackenddb.model.exercise.Exercise;
 import team.exploding.kisabackenddb.model.sentence.MRCSentence;
+import team.exploding.kisabackenddb.model.series.Series;
 import team.exploding.kisabackenddb.repository.*;
 import team.exploding.kisabackenddb.repository.assignables.MRCAnswerableItemRepository;
 import team.exploding.kisabackenddb.repository.assignables.MRCAnswerableRepository;
@@ -18,7 +19,8 @@ import team.exploding.kisabackenddb.service.KisaUserDetailsService;
 
 public class DemoContentConfiguration {
     @Bean
-    CommandLineRunner commandLineRunner(ExerciseRepository exerciseRepository,
+    CommandLineRunner commandLineRunner(SeriesRepository seriesRepository,
+                                        ExerciseRepository exerciseRepository,
                                         STRConstantRepository strConstantRepository,
                                         MRCSentenceRepository mrcSentenceRepository,
                                         MRCAnswerableRepository mrcAnswerableRepository,
@@ -34,8 +36,10 @@ public class DemoContentConfiguration {
             var attempt = Attempt.builder().closed(false).user(kuser).build();
             attemptRepository.save(attempt);*/
 
+            var series = Series.builder().title("Series 1").author(user).build();
+            seriesRepository.save(series);
             var exercise = Exercise.builder().title("Put in the correct preposition")
-                    .author(user).build();
+                    .series(series).build();
             exerciseRepository.save(exercise);
 
             var mrcSentence = MRCSentence.builder().exercise(exercise).build();

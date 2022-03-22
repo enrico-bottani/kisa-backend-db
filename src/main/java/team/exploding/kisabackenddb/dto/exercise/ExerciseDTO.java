@@ -17,6 +17,5 @@ import java.util.List;
 public class ExerciseDTO {
     private String title;
     private List<ExercisePageDTO> pages;
-    private KisaUserDatailsEntityDTO author;
     private Long id;
 }

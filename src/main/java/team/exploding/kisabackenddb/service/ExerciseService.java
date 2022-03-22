@@ -51,7 +51,8 @@ public class ExerciseService {
         if (exerciseDTO.getTitle() != null) title = exerciseDTO.getTitle();
 
 
-        return Optional.of(exerciseRepository.save(Exercise.builder().title(title).author(user.get()).build()))
+
+        return Optional.of(exerciseRepository.save(Exercise.builder().title(title).build()))
                 .map(exerciseMapper::map);
     }
 
@@ -68,7 +69,7 @@ public class ExerciseService {
         if (optexercise.isEmpty()) {
             return Optional.empty();
         }
-        if (!optexercise.get().getAuthor().getUserName().equals(userName)){
+        if (!optexercise.get().recoverAuthorUserName().equals(userName)){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         var exercise = optexercise.get();
