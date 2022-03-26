@@ -4,19 +4,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import team.exploding.kisabackenddb.model.Authored;
+import team.exploding.kisabackenddb.model.Owned;
 import team.exploding.kisabackenddb.model.security.KisaUserDetails;
 
 import java.util.Optional;
 
 @Service
 public class UserCheckService {
-    public boolean isAuthor(Authored authored) {
+    public boolean isAuthor(Owned authored) {
         System.out.println("security context: " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof KisaUserDetails) {
-            return authored.recoverAuthorUserName().equals(((KisaUserDetails) principal).getUsername());
+            return authored.getOwner().equals(((KisaUserDetails) principal).getUsername());
         } else return false;
 
     }
@@ -35,5 +35,11 @@ public class UserCheckService {
         }
         return user.get();
     }
-
+    public String getUserNameOrElseEmpty() throws HttpClientErrorException {
+        var user = this.getAuthor();
+        if (user.isEmpty()){
+            return "";
+        }
+        return user.get();
+    }
 }

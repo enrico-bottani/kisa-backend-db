@@ -17,4 +17,5 @@ public class SeriesDTO {
     String title;
     List<ExerciseDTO> exercises;
     KisaUserDatailsEntityDTO user;
+    boolean editPermissions;
 }

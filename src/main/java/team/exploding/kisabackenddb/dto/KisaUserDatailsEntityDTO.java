@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class KisaUserDatailsEntityDTO {
+    Long id;
     String userName;
 }

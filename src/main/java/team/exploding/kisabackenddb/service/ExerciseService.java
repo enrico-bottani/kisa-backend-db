@@ -2,21 +2,14 @@ package team.exploding.kisabackenddb.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
-import team.exploding.kisabackenddb.dto.epage.MRCSentenceDTO;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
-import team.exploding.kisabackenddb.mapper.MRCSentenceMapper;
 import team.exploding.kisabackenddb.mapper.editor.ExerciseMapper;
 import team.exploding.kisabackenddb.model.exercise.Exercise;
-import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 import team.exploding.kisabackenddb.repository.ExerciseRepository;
 import team.exploding.kisabackenddb.repository.KisaUserDatailsEntityRepository;
-import team.exploding.kisabackenddb.repository.MRCSentenceRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,13 +20,17 @@ public class ExerciseService {
     @Autowired
     ExerciseRepository exerciseRepository;
     @Autowired
-    MRCSentenceRepository mrcSentenceRepository;
-    @Autowired
     ExerciseMapper exerciseMapper;
     @Autowired
-    MRCSentenceMapper mrcSentenceMapper;
-    @Autowired
     KisaUserDatailsEntityRepository userDetailsRepository;
+    @Autowired
+    ServiceUtils serviceUtils;
+
+    private Exercise getExerciseOrThrowException(Long seriesId) {
+        var optSeries = exerciseRepository.findById(seriesId);
+        if (optSeries.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        return optSeries.get();
+    }
 
     @Transactional
     public Optional<ExerciseDTO> findById(long id) {
@@ -51,7 +48,6 @@ public class ExerciseService {
         if (exerciseDTO.getTitle() != null) title = exerciseDTO.getTitle();
 
 
-
         return Optional.of(exerciseRepository.save(Exercise.builder().title(title).build()))
                 .map(exerciseMapper::map);
     }
@@ -62,20 +58,14 @@ public class ExerciseService {
                 .map(exerciseMapper::map).collect(Collectors.toList());
     }
 
+    public Optional<ExerciseDTO> editExercise(long id, ExerciseDTO exerciseDTO) {
+        var exercise = getExerciseOrThrowException(id);
+        exercise.setTitle(exerciseDTO.getTitle());
+        return Optional.of(exerciseRepository.save(exercise)).map(exerciseMapper::map);
+    }
 
-    @Transactional(readOnly = false)
-    public Optional<MRCSentenceDTO> addSentenceToExerciseHavingId(long id, String userName) {
-        var optexercise = exerciseRepository.findById(id);
-        if (optexercise.isEmpty()) {
-            return Optional.empty();
-        }
-        if (!optexercise.get().recoverAuthorUserName().equals(userName)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        }
-        var exercise = optexercise.get();
-
-        var mrcSentence = MRCSentence.builder()
-                .exercise(exercise).build();
-        return Optional.of(mrcSentenceRepository.save(mrcSentence)).map(mrcSentenceMapper::map);
+    public String getExerciseUserName(long id) {
+        var exercise = getExerciseOrThrowException(id);
+        return exercise.getSeries().getAuthor().getUserName();
     }
 }

@@ -3,16 +3,10 @@ package team.exploding.kisabackenddb.demo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerable;
-import team.exploding.kisabackenddb.model.assignables.mrc.MRCAnswerableItem;
-import team.exploding.kisabackenddb.model.assignables.constant.STRConstant;
 import team.exploding.kisabackenddb.model.exercise.Exercise;
-import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 import team.exploding.kisabackenddb.model.series.Series;
-import team.exploding.kisabackenddb.repository.*;
-import team.exploding.kisabackenddb.repository.assignables.MRCAnswerableItemRepository;
-import team.exploding.kisabackenddb.repository.assignables.MRCAnswerableRepository;
-import team.exploding.kisabackenddb.repository.assignables.STRConstantRepository;
+import team.exploding.kisabackenddb.repository.ExerciseRepository;
+import team.exploding.kisabackenddb.repository.SeriesRepository;
 import team.exploding.kisabackenddb.service.KisaUserDetailsService;
 
 @Configuration
@@ -21,10 +15,6 @@ public class DemoContentConfiguration {
     @Bean
     CommandLineRunner commandLineRunner(SeriesRepository seriesRepository,
                                         ExerciseRepository exerciseRepository,
-                                        STRConstantRepository strConstantRepository,
-                                        MRCSentenceRepository mrcSentenceRepository,
-                                        MRCAnswerableRepository mrcAnswerableRepository,
-                                        MRCAnswerableItemRepository mrcAnswerableItemRepository,
                                         KisaUserDetailsService kisaUserDetailsService
                                         ) {
         return args -> {
@@ -42,20 +32,6 @@ public class DemoContentConfiguration {
                     .series(series).build();
             exerciseRepository.save(exercise);
 
-            var mrcSentence = MRCSentence.builder().exercise(exercise).build();
-            mrcSentence = mrcSentenceRepository.save(mrcSentence);
-
-            var mrcSentence2 = MRCSentence.builder().exercise(exercise).build();
-            mrcSentence2 = mrcSentenceRepository.save(mrcSentence2);
-
-            var str = STRConstant.builder().string("test").mrcSentence(mrcSentence).build();
-            strConstantRepository.save(str);
-            var mrc = MRCAnswerable.builder().position(1).mrcSentence(mrcSentence).build();
-            mrcAnswerableRepository.save(mrc);
-            var mrcAI_to = MRCAnswerableItem.builder().choice("to").mrcAnswerable(mrc).build();
-            var mrcAI_be = MRCAnswerableItem.builder().choice("be").mrcAnswerable(mrc).build();
-            mrcAnswerableItemRepository.save(mrcAI_be);
-            mrcAnswerableItemRepository.save(mrcAI_to);
            /* var choosenAnswer = MRCChoosenItem.builder().mrcAnswerableItem(mrcAI_be).attempt(attempt).build();
             mrcChoosenItemRepository.save(choosenAnswer);
             choosenAnswer = MRCChoosenItem.builder().mrcAnswerableItem(mrcAI_to).attempt(attempt).build();

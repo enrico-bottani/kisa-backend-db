@@ -4,13 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import team.exploding.kisabackenddb.model.Authored;
-import team.exploding.kisabackenddb.model.security.KisaUserDatailsEntity;
+import team.exploding.kisabackenddb.model.Owned;
 import team.exploding.kisabackenddb.model.series.Series;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,14 +15,11 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "Exercise")
-public class Exercise implements Authored {
+public class Exercise implements Owned {
     @Id
     @GeneratedValue
     @Column(name = "ID", updatable = false)
     private Long id;
-
-    @OneToMany(mappedBy = "exercise",fetch = FetchType.EAGER)
-    List<ExercisePage> pages = new ArrayList<>();
 
     String title;
 
@@ -34,7 +28,7 @@ public class Exercise implements Authored {
     Series series;
 
     @Override
-    public String recoverAuthorUserName() {
-        return series.getAuthor().getUserName();
+    public String getOwner() {
+        return series.getOwner();
     }
 }

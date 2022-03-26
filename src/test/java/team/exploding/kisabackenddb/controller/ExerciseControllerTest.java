@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import team.exploding.kisabackenddb.controller.exercise.ExerciseController;
-import team.exploding.kisabackenddb.dto.epage.MRCSentenceDTO;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
 import team.exploding.kisabackenddb.service.ExerciseService;
 import team.exploding.kisabackenddb.service.UserCheckService;
@@ -52,19 +51,6 @@ public class ExerciseControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(123)));
     }
 
-    @Test
-    @DisplayName("Should List all the exercises when making GET request to endpoint - /exercises.json")
-    public void post() throws Exception {
-        Mockito.when(
-                exerciseService.addSentenceToExerciseHavingId(123,"Enrico")).thenReturn(
-                Optional.ofNullable(MRCSentenceDTO.builder().id(4L).build())
-        );
-        Mockito.when(userCheckService.getUserNameOrElseThrowException()).thenReturn("Enrico");
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/exercises/123/mrc_sentence.json"))
-                .andExpect(MockMvcResultMatchers.status().is(200))
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(4)));
-    }
 
 }
 //http://localhost:8081/exercises.json

@@ -36,23 +36,4 @@ class ExerciseServiceTest {
     void findAll() {
     }
 
-    @Test
-    void addSentenceToExerciseHavingIdCheckAssignablesSize() {
-        var exercise = exerciseService.addNewExercise(ExerciseDTO.builder().title("test").build(),
-                "Enrico");
-        var sentence = exerciseService.addSentenceToExerciseHavingId(exercise.get().getId(),
-                "Enrico");
-        System.out.println("Exercise ID: "+exercise.get().getId());
-        assertEquals(0,sentence.get().getAssignables().size() );
-    }
-
-    @Test
-    void addSentenceToExerciseHavingId() {
-        var exercise = exerciseService.addNewExercise(ExerciseDTO.builder().title("test").build(),
-                "Enrico");
-        exerciseService.addSentenceToExerciseHavingId(exercise.get().getId(),
-                "Enrico");
-        System.out.println("Exercise ID: "+exercise.get().getId());
-        assertEquals(1, exerciseService.findById(exercise.get().getId()).get().getPages().size());
-    }
 }

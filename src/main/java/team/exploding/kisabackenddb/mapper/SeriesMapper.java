@@ -3,12 +3,9 @@ package team.exploding.kisabackenddb.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import team.exploding.kisabackenddb.dto.SeriesDTO;
-import team.exploding.kisabackenddb.dto.epage.MRCSentenceDTO;
 import team.exploding.kisabackenddb.dto.exercise.ExerciseDTO;
-import team.exploding.kisabackenddb.mapper.editor.AssignableMapper;
 import team.exploding.kisabackenddb.mapper.editor.ExerciseMapper;
 import team.exploding.kisabackenddb.mapper.security.KisaUserDetailsMapper;
-import team.exploding.kisabackenddb.model.sentence.MRCSentence;
 import team.exploding.kisabackenddb.model.series.Series;
 
 import java.util.ArrayList;
