@@ -21,10 +21,10 @@ public class DemoContentConfiguration {
                                         ExerciseRepository exerciseRepository,
                                         KisaUserDetailsService kisaUserDetailsService,
                                         SentenceRepository sentenceRepository
-                                        ) {
+    ) {
         return args -> {
-           var user = kisaUserDetailsService.saveUsername("Enrico","Password");
-           var sue = kisaUserDetailsService.saveUsername("Sue","Password");
+            var user = kisaUserDetailsService.saveUsername("Enrico", "Password");
+            var sue = kisaUserDetailsService.saveUsername("Sue", "Password");
 
            /* var kuser = KUser.builder().firstName("Enrico").build();
             kuserRepository.save(kuser);
@@ -36,7 +36,9 @@ public class DemoContentConfiguration {
             var exercise = Exercise.builder().title("Put in the correct preposition")
                     .series(series).build();
             exerciseRepository.save(exercise);
-            sentenceRepository.save(Sentence.builder().exercise(exercise).sentences(List.of("in","on")).build());
+            sentenceRepository.save(Sentence.builder()
+                    .exercise(exercise)
+                    .strings(List.of("in", "on")).build());
 
            /* var choosenAnswer = MRCChoosenItem.builder().mrcAnswerableItem(mrcAI_be).attempt(attempt).build();
             mrcChoosenItemRepository.save(choosenAnswer);

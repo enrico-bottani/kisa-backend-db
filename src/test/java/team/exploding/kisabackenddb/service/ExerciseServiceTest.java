@@ -21,18 +21,6 @@ class ExerciseServiceTest {
     }
 
     @Test
-    void addNew() {
-        var exercise = exerciseService.addNewExercise(ExerciseDTO.builder().title("test").build(), "Enrico");
-        assertEquals("test", exercise.get().getTitle());
-    }
-
-    @Test
-    void addNew_TitleNull() {
-        var exercise = exerciseService.addNewExercise(ExerciseDTO.builder().title(null).build(), "Enrico");
-        assertEquals("", exercise.get().getTitle());
-    }
-
-    @Test
     void findAll() {
     }
 
