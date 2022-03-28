@@ -11,6 +11,8 @@ import team.exploding.kisabackenddb.service.ExerciseService;
 import team.exploding.kisabackenddb.service.ServiceUtils;
 import team.exploding.kisabackenddb.service.UserCheckService;
 
+import java.util.Map;
+
 @Controller
 @RequestMapping("/api")
 public class ExerciseController {
@@ -21,7 +23,12 @@ public class ExerciseController {
     @Autowired
     ServiceUtils serviceUtils;
 
-
+    @GetMapping(value = "/exercises/{seriesId}/editable.json")
+    public ResponseEntity<Map<Object, Object>> isEditable(@PathVariable Long seriesId) {
+        String user = userCheckService.getUserNameOrElseThrowException();
+        String seriesUser = exerciseService.getExerciseUserName(seriesId);
+        return ResponseEntity.ok(Map.of("editable", user.equals(seriesUser)));
+    }
     @CrossOrigin
     @GetMapping(value = "/exercises/{id}.json")
     public ResponseEntity<ExerciseDTO> getExerciseById(@PathVariable(name = "id") long id) {

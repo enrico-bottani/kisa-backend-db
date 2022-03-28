@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import team.exploding.kisabackenddb.dto.KisaUserDatailsEntityDTO;
 
 @Data
 @NoArgsConstructor
@@ -12,5 +13,4 @@ import lombok.NoArgsConstructor;
 public class ExerciseDTO {
     private String title;
     private Long id;
-
 }

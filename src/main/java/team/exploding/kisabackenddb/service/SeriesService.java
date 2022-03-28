@@ -46,7 +46,7 @@ public class SeriesService {
 
     public SeriesDTO addNewSeriesOfUser(String seriesName, String userName) {
         var user = userDetailsRepository.findByUserName(userName);
-        if (user.isEmpty()) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        if (user.isEmpty()) throw new IllegalStateException();
         Series s = Series.builder().author(user.get()).title(seriesName).build();
         return seriesMapper.map(seriesRepository.save(s));
     }

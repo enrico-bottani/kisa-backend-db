@@ -21,6 +21,6 @@ public class KisaUserDetailsMapper {
                 .build();
     }
     public KisaUserDatailsEntityDTO mapToDTO(KisaUserDatailsEntity kisaUserDatailsEntity){
-        return KisaUserDatailsEntityDTO.builder().id(kisaUserDatailsEntity.getId()).userName(kisaUserDatailsEntity.getUserName()).build();
+        return KisaUserDatailsEntityDTO.builder().userName(kisaUserDatailsEntity.getUserName()).build();
     }
 }
