@@ -67,7 +67,9 @@ public class ExerciseService {
         var exercise = exerciseRepository.findExerciseById(id);
         if (exercise.isEmpty()) return Optional.empty();
         var e = exercise.get();
+
         var newSentence = Sentence.builder().exercise(e).build();
+
         return Optional.of(sentenceRepository.save(newSentence)).map(sentenceMapper::map);
     }
 }

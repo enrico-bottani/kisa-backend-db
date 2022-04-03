@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import team.exploding.kisabackenddb.dto.radio.RadioGroupDTO;
 
 import java.util.List;
 @Data
@@ -13,4 +14,5 @@ import java.util.List;
 public class SentenceDTO {
     List<String> strings;
     Long id;
+    List<RadioGroupDTO> radios;
 }

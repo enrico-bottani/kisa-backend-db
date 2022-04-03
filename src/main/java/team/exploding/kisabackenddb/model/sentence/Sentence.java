@@ -4,6 +4,7 @@ import lombok.*;
 import team.exploding.kisabackenddb.model.exercise.Exercise;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -21,6 +22,7 @@ public class Sentence {
     @JoinColumn(name="SERIES_ID", nullable=false)
     Exercise exercise;
     @ElementCollection
-    List<String> strings;
-
+    List<String> strings = new ArrayList<>();
+    @OneToMany(mappedBy = "sentence",fetch = FetchType.LAZY)
+    List<RadioGroup> radioGroups = new ArrayList<>();
 }

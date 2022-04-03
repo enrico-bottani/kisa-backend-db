@@ -4,11 +4,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import team.exploding.kisabackenddb.model.exercise.Exercise;
+import team.exploding.kisabackenddb.model.sentence.RadioGroup;
+import team.exploding.kisabackenddb.model.sentence.RadioItem;
 import team.exploding.kisabackenddb.model.sentence.Sentence;
 import team.exploding.kisabackenddb.model.series.Series;
-import team.exploding.kisabackenddb.repository.ExerciseRepository;
-import team.exploding.kisabackenddb.repository.SentenceRepository;
-import team.exploding.kisabackenddb.repository.SeriesRepository;
+import team.exploding.kisabackenddb.repository.*;
 import team.exploding.kisabackenddb.service.KisaUserDetailsService;
 
 import java.util.List;
@@ -20,7 +20,9 @@ public class DemoContentConfiguration {
     CommandLineRunner commandLineRunner(SeriesRepository seriesRepository,
                                         ExerciseRepository exerciseRepository,
                                         KisaUserDetailsService kisaUserDetailsService,
-                                        SentenceRepository sentenceRepository
+                                        SentenceRepository sentenceRepository,
+                                        RadioGroupRepository radioGroupRepository,
+                                        RadioItemRepository radioItemRepository
     ) {
         return args -> {
             var user = kisaUserDetailsService.saveUsername("Enrico", "Password");
@@ -36,9 +38,22 @@ public class DemoContentConfiguration {
             var exercise = Exercise.builder().title("Put in the correct preposition")
                     .series(series).build();
             exerciseRepository.save(exercise);
-            sentenceRepository.save(Sentence.builder()
+
+            var sentence = sentenceRepository.save(Sentence.builder()
                     .exercise(exercise)
-                    .strings(List.of("in", "on")).build());
+                    .strings(List.of("Put", "the correct preposition")).build());
+            var radioGroup = radioGroupRepository.save(RadioGroup.builder().sentence(sentence).build());
+            var radioItem = radioItemRepository.save(RadioItem.builder().value("on").radios(radioGroup).build());
+            var radioItem2 = radioItemRepository.save(RadioItem.builder().correct(true).value("in").radios(radioGroup).build());
+
+            var sentence2 = sentenceRepository.save(Sentence.builder()
+                    .exercise(exercise)
+                    .strings(List.of("Anne is arriving", "seven o'clock.")).build());
+            var radioGroup2 = radioGroupRepository.save(RadioGroup.builder().sentence(sentence2).build());
+            var radioItem21 = radioItemRepository.save(RadioItem.builder()
+                    .value("at").correct(true).radios(radioGroup2).build());
+            var radioItem22 = radioItemRepository.save(RadioItem.builder()
+                    .value("on").radios(radioGroup2).build());
 
            /* var choosenAnswer = MRCChoosenItem.builder().mrcAnswerableItem(mrcAI_be).attempt(attempt).build();
             mrcChoosenItemRepository.save(choosenAnswer);
